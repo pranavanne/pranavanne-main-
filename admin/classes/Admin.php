@@ -13,6 +13,12 @@ class Admin
 	public function getAdminList(){
 		$query = $this->con->query("SELECT `id`, `name`, `email`, `is_active` FROM `admin` WHERE 1");
 		$ar = [];
+		session_start();  
+		if (!isset($_SESSION['admin_id'])) {
+ 			 header("location:login.php");
+	}
+
+	include "./templates/top.php";
 		if ($query->num_rows > 0) {
 			while ($row = $query->fetch_assoc()) {
 				$ar[] = $row;
